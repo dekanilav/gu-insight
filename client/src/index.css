@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 10%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215, 13%, 40%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 10%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 10%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(215, 25%, 27%);
+  --accent: hsl(210, 40%, 96%);
+  --accent-foreground: hsl(215, 25%, 27%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(60, 9%, 98%);
+  --ring: hsl(217, 91%, 60%);
+  --radius: 0.5rem;
+  
+  /* Newspaper specific colors */
+  --newspaper-primary: hsl(0, 0%, 10%);
+  --newspaper-secondary: hsl(0, 72%, 39%);
+  --newspaper-accent: hsl(217, 91%, 60%);
+  --newspaper-background: hsl(210, 40%, 98%);
+}
+
+.dark {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 33%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 33%, 17%);
+  --input: hsl(217, 33%, 17%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(222, 84%, 5%);
+  --secondary: hsl(217, 33%, 17%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(217, 33%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(217, 91%, 60%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-serif {
+    font-family: 'Crimson Text', Georgia, serif;
+  }
+}
+
+@layer components {
+  .newspaper-viewer {
+    background: var(--newspaper-background);
+    min-height: 80vh;
+  }
+  
+  .page-transition {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .zoom-control {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  .newspaper-primary {
+    color: var(--newspaper-primary);
+  }
+  
+  .newspaper-secondary {
+    color: var(--newspaper-secondary);
+  }
+  
+  .newspaper-accent {
+    color: var(--newspaper-accent);
+  }
+  
+  .text-primary-newspaper {
+    color: var(--newspaper-primary);
+  }
+  
+  .text-secondary-newspaper {
+    color: var(--newspaper-secondary);
+  }
+  
+  .text-accent-newspaper {
+    color: var(--newspaper-accent);
+  }
+  
+  .bg-accent-newspaper {
+    background-color: var(--newspaper-accent);
+  }
+}
+
+/* PDF.js specific styles */
+.pdf-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+.pdf-page {
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile navigation styles */
+@media (max-width: 768px) {
+  .newspaper-viewer {
+    min-height: 60vh;
+  }
+  
+  .zoom-control {
+    padding: 0.5rem;
+  }
+}
+
+/* Touch-friendly controls */
+.touch-control {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Advertisement space styles */
+.ad-space {
+  border: 2px dashed hsl(214, 32%, 91%);
+  transition: all 0.2s ease-in-out;
+}
+
+.ad-space:hover {
+  border-color: var(--newspaper-accent);
+}
+
+.ad-space.has-content {
+  border: 1px solid hsl(214, 32%, 91%);
+}
+
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, hsl(210, 40%, 96%) 25%, hsl(210, 40%, 98%) 50%, hsl(210, 40%, 96%) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
