@@ -1,32 +1,35 @@
 import {
-  sqliteTable,
+  pgTable,
   text,
   integer,
-} from "drizzle-orm/sqlite-core";
+  boolean,
+  timestamp,
+  serial,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Define 'newspapers' table for SQLite
-export const newspapers = sqliteTable("newspapers", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+// Define 'newspapers' table for PostgreSQL (Neon)
+export const newspapers = pgTable("newspapers", {
+  id: serial("id").primaryKey(),
   title: text("title").notNull(),
   date: text("date").notNull(), // Format: YYYY-MM-DD
   filename: text("filename").notNull(),
   filePath: text("file_path").notNull(),
   fileType: text("file_type").notNull(), // 'pdf' | 'image'
   pageCount: integer("page_count").default(1).notNull(),
-  isActive: integer("is_active", { mode: "boolean" }).default(true).notNull(),
-  uploadedAt: integer("uploaded_at", { mode: "timestamp" }).default(new Date()).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 
-// Define 'advertisements' table for SQLite
-export const advertisements = sqliteTable("advertisements", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+// Define 'advertisements' table for PostgreSQL (Neon)
+export const advertisements = pgTable("advertisements", {
+  id: serial("id").primaryKey(),
   position: text("position").notNull(), // 'top-banner' | 'sidebar' | 'between-pages'
   filename: text("filename").notNull(),
   filePath: text("file_path").notNull(),
-  isActive: integer("is_active", { mode: "boolean" }).default(true).notNull(),
-  uploadedAt: integer("uploaded_at", { mode: "timestamp" }).default(new Date()).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 
 // Validation Schemas
